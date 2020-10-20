@@ -43,7 +43,7 @@ source "vsphere-iso" "centos7" {
 # documentation for build blocks can be found here:
 # https://www.packer.io/docs/from-1.5/blocks/build
 build {
-  sources = ["source.vsphere-iso.centos8"]
+  sources = ["source.vsphere-iso.centos7"]
 
   provisioner "shell" {
     inline = ["ls /"]
