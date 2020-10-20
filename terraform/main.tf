@@ -30,7 +30,7 @@ data "vsphere_network" "network" {
 }
 
 data "vsphere_virtual_machine" "template" {
-  name          = "build-centos8-${var.env}"
+  name          = "build-centos7-${var.env}"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
