@@ -18,5 +18,5 @@ cd iac-basic-lab
 
 ```sh
 cd packer
-export PKR_VAR_vsphere_password='{{ PASSWORD }}' && packer build centos8.pkr.hcl
+export PKR_VAR_vsphere_password='{{ PASSWORD }}' && packer build -force centos8.pkr.hcl
 ```
