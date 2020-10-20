@@ -1,4 +1,5 @@
 variable "vsphere_password" {}
+
 variable "env" {
   default = "prd"
 }
