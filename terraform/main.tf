@@ -75,19 +75,24 @@ resource "vsphere_virtual_machine" "gitlab" {
     }
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "yum install -y curl policycoreutils-python openssh-server postfix",
-      "systemctl enable sshd && systemctl start sshd",
-      "systemctl enable postfix && systemctl start postfix",
-      "curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | bash",
-      "EXTERNAL_URL="https://prd-gitlab.lab.local" yum install -y gitlab-ee"
-    ]
-    connection {
-      type      = "ssh"
-      host      = self.default_ip_address
-      user      = "root"
-      password  = "password"
-    }
+  #provisioner "remote-exec" {
+  #  inline = [
+  #    "yum install -y curl policycoreutils-python openssh-server postfix",
+  #    "systemctl enable sshd && systemctl start sshd",
+  #    "systemctl enable postfix && systemctl start postfix",
+  #    "curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | bash",
+  #    "EXTERNAL_URL="https://prd-gitlab.lab.local" yum install -y gitlab-ee"
+  #  ]
+  #  connection {
+  #    type      = "ssh"
+  #    host      = self.default_ip_address
+  #    user      = "root"
+  #    password  = "password"
+  #  }
+  #}
+
+  provisioner "ansible-local" {
+    playbook_file   = "../ansible/local-provision-gitlab.yml"
+    extra_arguments = ["--extra-vars", "\"env=${var.env}\""]
   }
 }
