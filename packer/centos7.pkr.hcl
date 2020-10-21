@@ -46,6 +46,6 @@ build {
   sources = ["source.vsphere-iso.centos7"]
 
   provisioner "shell" {
-    inline = ["ls /"]
+    scripts = "http/cleanup.sh"
   }
 }
