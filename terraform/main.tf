@@ -69,9 +69,18 @@ resource "vsphere_virtual_machine" "gitlab" {
       network_interface {
         ipv4_address = "192.168.2.111"
         ipv4_netmask = 24
+        dns_server_list = ["192.168.2.102"]
       }
 
       ipv4_gateway = "192.168.2.1"
     }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "yum install -y curl policycoreutils-python openssh-server postfix",
+      "systemctl enable sshd && systemctl start sshd",
+      "systemctl enable postfix && systemctl start postfix",
+    ]
   }
 }
