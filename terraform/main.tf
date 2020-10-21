@@ -1,7 +1,15 @@
 variable "vsphere_password" {}
 
+variable "infoblox_password" {}
+
 variable "env" {
   default = "prd"
+}
+
+provider "infoblox"{
+  username  = "admin"
+  password  = var.infoblox_password
+  server    = "infoblox.iac.lab.local"
 }
 
 provider "vsphere" {
@@ -63,7 +71,7 @@ resource "vsphere_virtual_machine" "gitlab" {
     customize {
       linux_options {
         host_name = "${var.env}-gitlab"
-        domain    = "lab.local"
+        domain    = "iac.lab.local"
       }
 
       network_interface {
@@ -95,4 +103,14 @@ resource "vsphere_virtual_machine" "gitlab" {
     playbook_file   = "../ansible/local-provision-gitlab.yml"
     extra_arguments = ["--extra-vars", "\"env=${var.env}\""]
   }
+}
+
+resource "infoblox_ip_association" "gitlab"{
+  vm_name     = "${var.env}-gitlab"
+  cidr        = "192.168.2.0/24"
+  mac_addr    = vsphere_virtual_machine.gitlab.network_interface.0.mac_address
+  ip_addr     = vsphere_virtual_machine.gitlab.default_ip_address
+  vm_id       = vsphere_virtual_machine.gitlab.id
+  tenant_id   = "${var.env}-gitlab"
+  zone        = "iac.lab.local"
 }
