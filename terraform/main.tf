@@ -105,7 +105,7 @@ resource "vsphere_virtual_machine" "gitlab" {
   }
 }
 
-resource "infoblox_ip_association" "gitlab"{
+resource "infoblox_ip_allocation" "gitlab"{
   vm_name     = "${var.env}-gitlab"
   cidr        = "192.168.2.0/24"
   mac_addr    = vsphere_virtual_machine.gitlab.network_interface.0.mac_address
@@ -114,3 +114,13 @@ resource "infoblox_ip_association" "gitlab"{
   tenant_id   = "${var.env}-gitlab"
   zone        = "iac.lab.local"
 }
+
+// resource "infoblox_ip_association" "gitlab"{
+//   vm_name     = "${var.env}-gitlab"
+//   cidr        = "192.168.2.0/24"
+//   mac_addr    = vsphere_virtual_machine.gitlab.network_interface.0.mac_address
+//   ip_addr     = vsphere_virtual_machine.gitlab.default_ip_address
+//   vm_id       = vsphere_virtual_machine.gitlab.id
+//   tenant_id   = "${var.env}-gitlab"
+//   zone        = "iac.lab.local"
+// }
