@@ -1,0 +1,28 @@
+- hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Install pre-reqs
+      package:
+        name:
+          - curl
+          - policycoreutils-python
+          - openssh-server
+          - postfix
+
+    - name: Start postfix
+      service:
+        name: postfix
+        state: started
+        enabled: true
+    
+    # Need to refactor this task
+    - name: Setup gitlab-ee repo
+      shell: |
+        curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | bash
+      
+    - name: Install gitlab-ee
+      package:
+        name: gitlab-ee
+        state: installed
+      environment:
+        EXTERNAL_URL: "https://{{ ansible_hostname }}.lab.local"
