@@ -99,10 +99,10 @@ resource "vsphere_virtual_machine" "gitlab" {
   #  }
   #}
 
-  provisioner "ansible-local" {
-    playbook_file   = "../ansible/local-provision-gitlab.yml"
-    extra_arguments = ["--extra-vars", "\"env=${var.env}\""]
-  }
+  // provisioner "ansible-local" {
+  //   playbook_file   = "../ansible/local-provision-gitlab.yml"
+  //   extra_arguments = ["--extra-vars", "\"env=${var.env}\""]
+  // }
 }
 
 resource "infoblox_ip_allocation" "gitlab"{
