@@ -81,5 +81,11 @@ resource "vsphere_virtual_machine" "gitlab" {
       "systemctl enable sshd && systemctl start sshd",
       "systemctl enable postfix && systemctl start postfix",
     ]
+    connection {
+      type      = "ssh"
+      host      = self.default_ip_address
+      user      = "root"
+      password  = "password"
+    }
   }
 }
