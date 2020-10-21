@@ -21,7 +21,7 @@
 #remove udev hardware rules
 /bin/rm -f /etc/udev/rules.d/70*
 #remove uuid from ifcfg scripts
-/bin/sed –i”.bak” ‘/UUID/d’ /etc/sysconfig/network-scripts/ifcfg-eno16777984
+sed –i”.bak” ‘/UUID/d’ /etc/sysconfig/network-scripts/ifcfg-eno16777984
 #remove SSH host keys
 /bin/rm -f /etc/ssh/*key*
 #remove root users shell history
