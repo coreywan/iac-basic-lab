@@ -46,6 +46,6 @@ build {
   sources = ["source.vsphere-iso.centos7"]
 
   provisioner "shell" {
-    scripts = "http/cleanup.sh"
+    scripts = ["http/cleanup.sh"]
   }
 }
