@@ -6,7 +6,7 @@
 /sbin/service rsyslog stop
 /sbin/service auditd stop
 #remove old kernels
-/bin/package-cleanup –oldkernels –count=1
+#/bin/package-cleanup –oldkernels –count=1
 #clean yum cache
 /usr/bin/yum clean all
 #force logrotate to shrink logspace and remove old logs as well as truncate logs
