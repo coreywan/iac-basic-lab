@@ -113,6 +113,7 @@ resource "infoblox_ip_allocation" "gitlab"{
   vm_id       = vsphere_virtual_machine.gitlab.id
   tenant_id   = "${var.env}-gitlab"
   zone        = "iac.lab.local"
+  enable_dns  = true
 }
 
 // resource "infoblox_ip_association" "gitlab"{
