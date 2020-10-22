@@ -74,10 +74,10 @@ resource "vsphere_virtual_machine" "gitlab" {
         domain    = "iac.lab.local"
       }
 
-      // network_interface {
+      network_interface {
       //   ipv4_address = "192.168.2.111"
       //   ipv4_netmask = 24
-      // }
+      }
       dns_server_list = ["192.168.2.102"]
       ipv4_gateway = "192.168.2.1"
     }
