@@ -119,12 +119,10 @@ resource "infoblox_ip_allocation" "gitlab"{
 resource "infoblox_a_record" "gitlab"{
   vm_name     = "${var.env}-gitlab"
   cidr        = "192.168.2.0/24"
-  mac_addr    = vsphere_virtual_machine.gitlab.network_interface.0.mac_address
   ip_addr     = vsphere_virtual_machine.gitlab.default_ip_address
   vm_id       = vsphere_virtual_machine.gitlab.id
   tenant_id   = "${var.env}-gitlab"
   zone        = "iac.lab.local"
-  enable_dns  = true
 }
 
 // resource "infoblox_ip_association" "gitlab"{
